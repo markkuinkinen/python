@@ -33,7 +33,7 @@ class Car:
             if self.currentSpeed + changeOfSpeed <= 0:      #using + because change of speed is negative
                 self.currentSpeed = 0
             else:
-                self.currentSpeed -= changeOfSpeed
+                self.currentSpeed += changeOfSpeed
 
 firstCar = Car("ABC-123", 142)
 
@@ -73,7 +73,7 @@ class Car:
             if self.currentSpeed + changeOfSpeed <= 0:      #using + because change of speed is negative
                 self.currentSpeed = 0
             else:
-                self.currentSpeed -= changeOfSpeed
+                self.currentSpeed += changeOfSpeed
 
     def drive(self, hours):
         self.distanceTravelled += self.currentSpeed * hours
@@ -93,6 +93,8 @@ class Car:
         self.currentSpeed = 0
         self.distanceTravelled = 0
 
+        self.timer = 0
+
     def accelerate(self, changeOfSpeed):
         if changeOfSpeed > 0: # and change + current < maxspeed -> equal this + that, else = maxspeed
             if (self.currentSpeed + changeOfSpeed) <= self.maxSpeed:
@@ -103,10 +105,11 @@ class Car:
             if (self.currentSpeed + changeOfSpeed) <= 0:      #using + because change of speed is negative
                 self.currentSpeed = 0
             else:
-                self.currentSpeed -= changeOfSpeed
+                self.currentSpeed += changeOfSpeed
 
     def drive(self, hours):
         self.distanceTravelled += self.currentSpeed * hours
+        self.timer += 1
 
 carList = []
 
@@ -120,8 +123,9 @@ raceOn = True
 while raceOn:                                               #to run code until desired outcome
     for car in range(len(carList)):                         #to go through every car to drive and accelerate
         carList[car].drive(1)                               #car drives for 1 hour 
-        if carList[car].distanceTravelled >= 1000:          #if current car finished then race is over
+        if carList[car].distanceTravelled >= 8000:          #if current car finished then race is over
             print(carList[car].regNumber + " won!")
+            print(f"{carList[car].timer} hours to win it!")
             raceOn = False                                  #Stops race and other cars from moving if someone got to the finish line first
             break                                           #poor wording in question because not all cars get to drive for the final hour
         else:
